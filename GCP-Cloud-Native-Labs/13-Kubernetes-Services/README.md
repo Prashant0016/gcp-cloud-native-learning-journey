@@ -11,6 +11,7 @@ After deploying applications with Kubernetes Deployments, a major challenge rema
 - Restart
 - Be recreated
 - Receive new IP addresses
+
 Users cannot reliably connect directly to Pod IPs. To provide consistent access, Kubernetes uses **Services**, which offer stable networking and load balancing for application workloads.
 
 ## Google Cloud Services Used
@@ -25,25 +26,26 @@ Users cannot reliably connect directly to Pod IPs. To provide consistent access,
 
 ### Step 1 – Create a Kubernetes Cluster
 
-Navigate to: Kubernetes Engine
-Create a new cluster using an **e2-small** machine configuration.
+Navigate to: Kubernetes Engine | Create a new cluster using an **e2-small** machine configuration.
 
 ### Step 2 – Connect to the Cluster
 
-Open **Cloud Shell** and connect `kubectl` to the cluster.
-gcloud container clusters get-credentials CLUSTER_NAME --region REGION
+Open **Cloud Shell** and connect `kubectl` to the cluster | gcloud container clusters get-credentials CLUSTER_NAME --region REGION
+
 Replace:
 - `CLUSTER_NAME`
 - `REGION`
-with your cluster details. Verify the connection.
-kubectl get nodes
+
+with your cluster details. 
+
+Verify the connection | kubectl get nodes
 
 ### Step 3 – Create the Deployment
 
-Create the deployment manifest.
-nano deployment.yaml
-Paste the following configuration.
+Create the deployment manifest | nano deployment.yaml
 
+Paste the following configuration.
+```
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -63,17 +65,20 @@ spec:
            image: nginx
            ports:
 	 	- containerPort: 80
-Save the file. Deploy the application.
-kubectl apply -f deployment.yaml
-Verify that the Pods are running.
-kubectl get pods
+```
+
+Save the file. 
+
+Deploy the application | kubectl apply -f deployment.yaml
+
+Verify that the Pods are running | kubectl get pods
 
 ### Step 4 – Create the Kubernetes Service
 
-Create a Service manifest.
-nano service.yaml
-Paste the following configuration.
+Create a Service manifest | nano service.yaml
 
+Paste the following configuration.
+```
 apiVersion: v1
 kind: Service
 metadata:
@@ -86,36 +91,38 @@ ports:
       port: 80
       targetPort: 80
 type: LoadBalancer
+```
 
-Save the file. Apply the Service.
-kubectl apply -f service.yaml
-View the Service.
-kubectl get services
-Wait until an **External IP** is assigned.
-Open the External IP in a browser to access the deployed application.
+Save the file. 
+
+Apply the Service | kubectl apply -f service.yaml
+
+View the Service | kubectl get services
+
+Wait until an **External IP** is assigned. Open the External IP in a browser to access the deployed application.
 
 ### Step 5 – Observe the Network Flow
 
 After the Service is created, traffic flows through the following path:
 User -> Cloud Load Balancer -> Kubernetes Service -> Application Pods
+
 The Service provides a stable endpoint while distributing incoming traffic across healthy Pods.
 
 ### Step 6 – Test Self-Healing
 
-Delete one of the running Pods.
-kubectl delete pod POD_NAME
-Observe the Pods again.
-kubectl get pods
+Delete one of the running Pods | kubectl delete pod POD_NAME
+
+Observe the Pods again | kubectl get pods
+
 The Deployment automatically creates a replacement Pod while the Service continues routing traffic without interruption.
 
 ### Step 7 – Clean Up
 
-Delete the Service.
-kubectl delete service nginx-service
-Delete the Deployment.
-kubectl delete deployment nginx-deployment
-Finally, delete the Kubernetes cluster from:
-Kubernetes Engine → Clusters
+Delete the Service | kubectl delete service nginx-service
+
+Delete the Deployment | kubectl delete deployment nginx-deployment
+
+Finally, delete the Kubernetes cluster from: Kubernetes Engine → Clusters
 
 ## Key Concepts Learned
 
@@ -173,7 +180,7 @@ The container port that receives incoming requests.
 
 **type: LoadBalancer**
 
-type: LoadBalancer
+type: LoadBalancer | 
 Instructs Google Kubernetes Engine to provision an external Cloud Load Balancer and assign a public IP address.
 
 ### What Happens Internally
@@ -183,6 +190,7 @@ When the Service is applied:
 - Google Kubernetes Engine provisions an external Cloud Load Balancer.
 - A public IP address is allocated.
 - Incoming traffic is distributed across healthy Pods.
+
 Kubernetes integrates directly with cloud provider APIs to automate network resource provisioning.
 
 ### Self-Healing with Services
@@ -212,6 +220,7 @@ This combination provides resilient application networking.
 
 Services enable applications within the cluster to communicate using stable DNS names instead of changing Pod IP addresses. Example:
 http://backend-service
+
 This allows frontend applications to consistently communicate with backend services regardless of Pod restarts.
 
 ### Cloud-Native Benefits
