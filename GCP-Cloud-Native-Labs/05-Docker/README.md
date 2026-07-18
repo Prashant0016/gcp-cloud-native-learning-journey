@@ -36,10 +36,10 @@ Open an SSH session to the VM.
 
 ### Step 3 – Install Docker
 
-Update the package repository.
-sudo apt update
-Install Docker.
-sudo apt install docker.io -y
+Update the package repository | sudo apt update
+
+Install Docker | sudo apt install docker.io -y
+
 This installs:
 - Docker Engine
 - Container Runtime
@@ -47,24 +47,24 @@ This installs:
 
 ### Step 4 – Start Docker
 
-Start the Docker service.
-sudo systemctl start docker
-Enable Docker to start automatically after every reboot.
-sudo systemctl enable docker
-Verify the service status.
-sudo systemctl status docker
+Start the Docker service | sudo systemctl start docker
+
+Enable Docker to start automatically after every reboot | sudo systemctl enable docker
+
+Verify the service status | sudo systemctl status docker
+
 Expected result: active (running)
 
 ### Step 5 – Verify Docker Installation
 
-Check the installed Docker version.
-sudo docker version
+Check the installed Docker version | sudo docker version
+
 This confirms both the Docker Client and Docker Engine are installed correctly.
 
 ### Step 6 – Run Your First Container
 
-Run the Hello World container.
-sudo docker run hello-world
+Run the Hello World container | sudo docker run hello-world
+
 Docker automatically:
 - Checks the local image cache.
 - Downloads the image from Docker Hub (if not present).
@@ -75,33 +75,30 @@ Docker automatically:
 
 ### Step 7 – View Local Images
 
-sudo docker images
-This displays all Docker images currently stored on the VM.
+sudo docker images | This displays all Docker images currently stored on the VM.
 
 ### Step 8 – Run an NGINX Container
 
-Start an NGINX container.
-sudo docker run -d -p 80:80 nginx
-Open the VM's **External IP Address** in a web browser.
-Expected result: The default **NGINX Welcome Page** should be displayed.
-he web server is running **inside the container**, not directly on the Virtual Machine.
+Start an NGINX container | sudo docker run -d -p 80:80 nginx
+
+Open the VM's **External IP Address** in a web browser. Expected result: The default **NGINX Welcome Page** should be displayed. The web server is running **inside the container**, not directly on the Virtual Machine.
 
 
 ### Step 9 – Manage Containers
 
-View running containers.
-sudo docker ps
-Stop a container.
-sudo docker stop CONTAINER_ID
-Start a stopped container.
-sudo docker start CONTAINER_ID
-View all containers.
-sudo docker ps -a
-Remove a container.
-sudo docker rm CONTAINER_ID
-Remove an image.
-sudo docker rmi nginx
-View Docker-related processes.
+View running containers | sudo docker ps
+
+Stop a container | sudo docker stop CONTAINER_ID
+
+Start a stopped container | sudo docker start CONTAINER_ID
+
+View all containers | sudo docker ps -a
+
+Remove a container | sudo docker rm CONTAINER_ID
+
+Remove an image | sudo docker rmi nginx
+
+View Docker-related processes:
 ps aux | grep docker
 
 ## Key Concepts Learned
@@ -114,6 +111,7 @@ A container packages everything an application requires to run, including:
 - Libraries
 - Dependencies
 - Configuration files
+
 Because everything is packaged together, the application behaves consistently across different environments.
 
 ### Why Containers?
@@ -122,6 +120,7 @@ Without containers, applications may fail because of:
 - Missing software
 - Different runtime versions
 - Dependency conflicts
+
 Containers eliminate these issues by packaging the application together with its required environment.
 
 ### Docker
@@ -139,8 +138,8 @@ Docker Engine is the core software responsible for running containers. Its respo
 - Managing images
 - Networking
 - Storage management
-When the Docker service shows: active (running)
-the Docker daemon is actively managing containers on the system.
+
+When the Docker service shows: active (running), the Docker daemon is actively managing containers on the system.
 
 ### Daemon
 
@@ -156,27 +155,32 @@ A Docker Image is a read-only template used to create containers. It contains:
 - Runtime
 - Libraries
 - Dependencies
+
 Think of an Image as a blueprint, while a Container is the running instance created from that blueprint.
 
 ### Docker Hub
 
-Docker Hub is a public container registry where developers publish and download container images. When running:
-sudo docker run hello-world
-Docker performs the following workflow:
-Check Local Image --> Image Not Found --> Download from Docker Hub --> Create Container --> Run Container --> Display Output
+Docker Hub is a public container registry where developers publish and download container images. 
+
+When running: sudo docker run hello-world
+
+Docker performs the following workflow: Check Local Image --> Image Not Found --> Download from Docker Hub --> Create Container --> Run Container --> Display Output
 
 ### Local Image Cache
 
 Running: sudo docker images
-displays the local image cache stored on the machine.
-Previously downloaded images are reused instead of being downloaded again.
+
+displays the local image cache stored on the machine. Previously downloaded images are reused instead of being downloaded again.
 
 ### Port Mapping
 
 The following command: sudo docker run -d -p 80:80 nginx
+
 maps: Host Port : Container Port. Example: 80 : 80
+
 Traffic flow: Internet --> VM Port 80 --> Container Port 80 --> NGINX
-ontainers have isolated networking, and port mapping exposes container services to external users.
+
+containers have isolated networking, and port mapping exposes container services to external users.
 
 ### Containers vs Virtual Machines
 
@@ -211,10 +215,9 @@ Instead, it deploys and manages **containers**, making containerization the foun
 
 ### Detached Mode
 
-Running a container without: -d
-keeps the terminal attached to the running process.
-Using: -d
-starts the container in the background, allowing the terminal to be used for other commands.
+Running a container without: -d | keeps the terminal attached to the running process.
+
+Using: -d | starts the container in the background, allowing the terminal to be used for other commands.
 
 ### Why Cloud-Native Systems Use Containers
 
