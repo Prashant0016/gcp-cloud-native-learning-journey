@@ -7,10 +7,12 @@ Learn how Kubernetes manages CPU and memory resources using **Requests**, **Limi
 ## Real-World Scenario
 
 In a shared Kubernetes cluster, multiple teams and applications compete for the same compute resources. Without resource management, a single application could consume excessive CPU or memory, negatively affecting other workloads running in the cluster.
+
 Kubernetes addresses this by allowing engineers to define:
 - **Requests** – Minimum resources guaranteed for a Pod
 - **Limits** – Maximum resources a Pod can consume
 - **ResourceQuotas** – Namespace-wide resource limits for teams or environments
+
 These controls help maintain cluster stability and efficient resource utilization.
 
 ## Google Cloud Services Used
@@ -27,27 +29,24 @@ These controls help maintain cluster stability and efficient resource utilizatio
 
 ### Step 1 – Create a Kubernetes Cluster
 
-Navigate to: Kubernetes Engine
-Create a new cluster using an **e2-small** machine configuration.
+Navigate to: Kubernetes Engine | Create a new cluster using an **e2-small** machine configuration.
 
 ### Step 2 – Connect to the Cluster
 
-Open **Cloud Shell** and connect `kubectl` to the cluster. Verify the connection.
-kubectl get nodes
+Open **Cloud Shell** and connect `kubectl` to the cluster. Verify the connection. | kubectl get nodes
 
 ### Step 3 – Create a Namespace
 
-Create a namespace for the deployment.
-kubectl create namespace dev
-Verify that the namespace has been created.
-kubectl get ns
+Create a namespace for the deployment | kubectl create namespace dev
+
+Verify that the namespace has been created | kubectl get ns
 
 ### Step 4 – Create a Resource-Limited Deployment
 
-Create a deployment manifest.
-nano resources.yaml
-Paste the following configuration.
+Create a deployment manifest | nano resources.yaml
 
+Paste the following configuration.
+```
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -73,44 +72,45 @@ resources:
 limits: 
     cpu: "200m" 
     memory: "256Mi"
+```
+
 Save the file.
 
-Deploy the application.
-kubectl apply -f resources.yaml
-Verify the deployment.
-kubectl get deployments -n dev
-Inspect the configured resource requests and limits.
-kubectl describe deployment nginx-resources -n dev
+Deploy the application | kubectl apply -f resources.yaml
+
+Verify the deployment | kubectl get deployments -n dev
+
+Inspect the configured resource requests and limits | kubectl describe deployment nginx-resources -n dev
 
 ### Step 5 – Create a ResourceQuota
 
-Create a ResourceQuota manifest.
-nano quota.yaml
+Create a ResourceQuota manifest | nano quota.yaml
 
 Paste the following configuration.
-
+```
 apiVersion: v1
 kind: ResourceQuota
 metadata: name: dev-quota namespace: dev
 spec: hard: requests.cpu: "1" requests.memory: 1Gi
 limits.cpu: "2" limits.memory: 2Gi pods: "10"
+```
+
 Save the file.
 
-Apply the ResourceQuota.
-kubectl apply -f quota.yaml
-Verify that the quota has been created.
-kubectl get resourcequota -n dev
-View detailed quota information.
-kubectl describe resourcequota dev-quota -n dev
+Apply the ResourceQuota | kubectl apply -f quota.yaml
+
+Verify that the quota has been created | kubectl get resourcequota -n dev
+
+View detailed quota information | kubectl describe resourcequota dev-quota -n dev
 
 Observe the current resource usage and remaining capacity within the namespace.
 
 ### Step 6 – Inspect the Running Pod
 
-View the running Pod.
-kubectl get pods -n dev
-Inspect the Pod configuration.
-kubectl describe pod <pod-name> -n dev
+View the running Pod | kubectl get pods -n dev
+
+Inspect the Pod configuration | kubectl describe pod <pod-name> -n dev
+
 Replace `<pod-name>` with the name of your running Pod.
 
 ## Key Concepts Learned
