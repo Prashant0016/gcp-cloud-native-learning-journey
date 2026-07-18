@@ -17,6 +17,7 @@ Managing containers manually becomes impractical. Common challenges include:
 - Sudden traffic spikes
 - Virtual Machine failures
 - Scaling applications to meet demand
+
 Modern cloud-native applications solve these challenges using **Kubernetes**, which automates container orchestration and workload management.
 
 ## Google Cloud Services Used
@@ -31,60 +32,60 @@ Modern cloud-native applications solve these challenges using **Kubernetes**, wh
 
 ### Step 1 – Create a Kubernetes Cluster
 
-Navigate to: Kubernetes Engine
-Enable the API if prompted.
-Create a new **Autopilot Cluster**.
-Once the cluster is ready, open **Cloud Shell**.
+Navigate to: Kubernetes Engine | Enable the API if prompted.
+
+Create a new **Autopilot Cluster** | Once the cluster is ready, open **Cloud Shell**.
 
 ### Step 2 – Connect kubectl to the Cluster
 
 Run: gcloud container clusters get-credentials my-first-gke-cluster --region asia-south1
+
 This command configures `kubectl` to communicate with the newly created Kubernetes cluster.
 
 ### Step 3 – Verify Cluster Nodes
 
-List the available worker nodes.
-kubectl get nodes
+List the available worker nodes | kubectl get nodes
+
 Confirm that all nodes are in the **Ready** state.
 
 ### Step 4 – Deploy an Application
 
-Create an NGINX deployment.
-kubectl create deployment nginx-deployment --image=nginx
+Create an NGINX deployment | kubectl create deployment nginx-deployment --image=nginx
 
 ### Step 5 – Verify the Pods
 
-View the running pods.
-kubectl get pods
+View the running pods | kubectl get pods
+
 Confirm that the deployment has created a running pod.
 
 ### Step 6 – Test Self-Healing
 
-Delete the running pod.
-kubectl delete pod POD_NAME
-Check the pod status again.
-kubectl get pods
+Delete the running pod | kubectl delete pod POD_NAME
+
+Check the pod status again | kubectl get pods
+
 Observe that Kubernetes automatically creates a replacement pod to maintain the desired state.
 
 ### Step 7 – Scale the Deployment
 
-Increase the number of replicas.
-kubectl scale deployment nginx-deployment --replicas=3
-Verify the deployment.
-kubectl get pods
+Increase the number of replicas | kubectl scale deployment nginx-deployment --replicas=3
+
+Verify the deployment | kubectl get pods
+
 Three running pods should now be available.
 
 ### Step 8 – Expose the Deployment
 
-Create a LoadBalancer service.
-kubectl expose deployment nginx-deployment --type=LoadBalancer --port=80
-View the available services.
-kubectl get services
+Create a LoadBalancer service | kubectl expose deployment nginx-deployment --type=LoadBalancer --port=80
+
+View the available services | kubectl get services
+
 Once an External IP is assigned, open it in a web browser to access the deployed application.
 
 ## Sandbox Observation
 
 > **Note:** Managed Kubernetes services such as Google Kubernetes Engine (GKE) automatically provision multiple underlying resources, including worker nodes, networking components, load balancing infrastructure, and orchestration services. In restricted sandbox environments, this increased infrastructure usage may trigger quota limits or anti-abuse protections. This behavior is expected and does not indicate an issue with the deployment.
+
 > **Additional Observation:** Creating a Kubernetes cluster provisions significantly more infrastructure than creating a single Virtual Machine because Kubernetes must manage orchestration, networking, scheduling, scaling, and workload recovery across multiple nodes.
 
 ## Key Concepts Learned
@@ -111,6 +112,7 @@ Google Kubernetes Engine (GKE) is Google's managed Kubernetes service. Google ma
 - Control Plane
 - Cluster upgrades
 - Infrastructure management
+
 Developers focus on deploying and managing their applications rather than maintaining Kubernetes itself.
 
 ### Kubernetes Cluster
@@ -131,6 +133,7 @@ Worker Nodes host:
 
 A Pod is the smallest deployable unit in Kubernetes. A Pod usually contains:
 - One container
+
 In some cases, multiple tightly coupled containers may run within the same Pod.
 Kubernetes manages Pods rather than individual containers.
 
@@ -146,8 +149,7 @@ Kubernetes manages Pods rather than individual containers.
 ### Declarative Infrastructure
 
 Kubernetes follows a declarative approach. Instead of describing every individual step, you define the desired end state.
-For example: Desired Replicas = 3
-Kubernetes continuously works to ensure that three healthy Pods remain running.
+For example: Desired Replicas = 3 | Kubernetes continuously works to ensure that three healthy Pods remain running.
 
 ### Deployments
 
@@ -156,6 +158,7 @@ A Deployment manages:
 - Replica count
 - Updates
 - Recovery
+
 If a Pod fails, the Deployment automatically creates a replacement to maintain the desired state.
 
 ### Self-Healing
@@ -167,6 +170,7 @@ This helps maintain application availability.
 
 Scaling a Deployment increases or decreases the number of running Pods. Example:
 1 Pod --> Scale Deployment --> 3 Pods
+
 This enables applications to handle increased workloads efficiently.
 
 ## Outcome
