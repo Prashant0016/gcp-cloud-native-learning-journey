@@ -13,6 +13,7 @@ An organization wants to deploy containerized applications but does **not** want
 - Infrastructure maintenance
 - Scaling policies
 - Operating system updates
+
 Instead, the organization chooses **Google Cloud Run**, allowing developers to focus solely on their applications while Google Cloud manages the underlying infrastructure.
 
 ## Google Cloud Services Used
@@ -26,8 +27,7 @@ Instead, the organization chooses **Google Cloud Run**, allowing developers to f
 
 ### Step 1 – Open Cloud Run
 
-Navigate to: Cloud Run
-Enable the Cloud Run API if prompted.
+Navigate to: Cloud Run | Enable the Cloud Run API if prompted.
 
 ### Step 2 – Create a New Service
 
@@ -35,8 +35,7 @@ Select: Deploy one revision from an existing container image
 
 ### Step 3 – Specify the Container Image
 
-For the container image, enter: nginx
-Cloud Run automatically retrieves the public NGINX container image, similar to pulling an image from Docker Hub.
+For the container image, enter: nginx | Cloud Run automatically retrieves the public NGINX container image, similar to pulling an image from Docker Hub.
 
 ### Step 4 – Configure the Service
 
@@ -44,6 +43,7 @@ Provide the following details:
 - Service Name
 - Deployment Region
 - Allow Public Access
+
 Click **Create** to deploy the service.
 
 ### Step 5 – Verify the Deployment
@@ -66,6 +66,7 @@ Google Cloud Run is a fully managed serverless platform for deploying containeri
 - Networking
 - Scaling
 - High availability
+
 This enables teams to focus on application development rather than infrastructure management.
 
 ### Serverless Computing
