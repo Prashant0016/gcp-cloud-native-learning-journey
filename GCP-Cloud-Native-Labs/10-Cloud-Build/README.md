@@ -55,20 +55,22 @@ If no GitHub repository is available:
 3. Paste the following YAML into the editor.
 
 steps:
+```
 - name: 'gcr.io/cloud-builders/docker'
 - args: ['version']
-  
+```  
 If the build reports a logging-related error, update the configuration:
-
+```
   options: 
      - logging: CLOUD_LOGGING_ONLY
+```
      
 This configures Cloud Build to write logs directly to Cloud Logging instead of using a custom storage bucket. Select an available service account, then create and run the trigger.
 
 ### Step 3 – Upgrade the Pipeline
 
 Replace the previous YAML with the following example: steps:
-
+```
 - name: 'ubuntu'
 - entrypoint: 'bash'
 - args: 
@@ -80,7 +82,8 @@ Replace the previous YAML with the following example: steps:
        - cat result.txt
 - options:
       - logging: CLOUD_LOGGING_ONLY
-  
+```
+
 Run the trigger again. This workflow demonstrates a simple automated pipeline that creates a directory, writes a file, and prints its contents during the build process.
 
 ### Step 4 – View Build History
