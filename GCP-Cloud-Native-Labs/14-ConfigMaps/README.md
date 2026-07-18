@@ -13,6 +13,7 @@ Enterprise applications often require runtime configuration such as:
 - Authentication tokens
 - Passwords
 - Environment-specific settings
+
 Hardcoding these values inside application code makes deployments difficult, increases security risks, and reduces flexibility.
 Kubernetes solves this problem by separating **application code** from **application configuration** using ConfigMaps and Secrets.
 
@@ -28,41 +29,38 @@ Kubernetes solves this problem by separating **application code** from **applica
 
 ### Step 1 – Create a Kubernetes Cluster
 
-Navigate to: Kubernetes Engine
-Create a new cluster using an **e2-small** machine configuration while leaving the remaining settings at their default values.
+Navigate to: Kubernetes Engine | Create a new cluster using an **e2-small** machine configuration while leaving the remaining settings at their default values.
 
 ### Step 2 – Connect to the Cluster
 
-Open **Cloud Shell** and connect `kubectl` to the cluster.
-gcloud container clusters get-credentials config-cluster --region REGION
+Open **Cloud Shell** and connect `kubectl` to the cluster | gcloud container clusters get-credentials config-cluster --region REGION
+
 Replace `REGION` with your selected region.
-Verify the connection.
-kubectl get nodes
+
+Verify the connection | kubectl get nodes
 
 ### Step 3 – Create a ConfigMap
 
-Create a ConfigMap containing application configuration.
-kubectl create configmap app-config --from-literal=APP_MODE=production --from-literal=APP_COLOR=blue
-Verify the ConfigMap.
-kubectl get configmaps
-View its details.
-kubectl describe configmap app-config
+Create a ConfigMap containing application configuration | kubectl create configmap app-config --from-literal=APP_MODE=production --from-literal=APP_COLOR=blue
+
+Verify the ConfigMap | kubectl get configmaps
+
+View its details | kubectl describe configmap app-config
 
 ### Step 4 – Create a Secret
 
-Create a Kubernetes Secret for sensitive data.
-kubectl create secret generic app-secret --from-literal=DB_PASSWORD=mysecurepassword
-Verify the Secret.
-kubectl get secrets
-Inspect the Secret.
-kubectl describe secret app-secret
+Create a Kubernetes Secret for sensitive data | kubectl create secret generic app-secret --from-literal=DB_PASSWORD=mysecurepassword
+
+Verify the Secret | kubectl get secrets
+
+Inspect the Secret | kubectl describe secret app-secret
 
 ### Step 5 – Create the Deployment
 
-Create the deployment manifest.
-nano deployment.yaml
-Paste the following configuration.
+Create the deployment manifest | nano deployment.yaml
 
+Paste the following configuration.
+```
 apiVersion: apps/v1
 kind: Deployment
 metadata: 
@@ -91,30 +89,32 @@ env:
       secretKeyRef: 
           name: app-secret 
           key: DB_PASSWORD
+```
 
 Save the file.
-Deploy the application.
-kubectl apply -f deployment.yaml
-Verify that the Pod is running.
-kubectl get pods
+
+Deploy the application | kubectl apply -f deployment.yaml
+
+Verify that the Pod is running | kubectl get pods
 
 ### Step 6 – Verify the Environment Variables
 
-Access the running container.
-kubectl exec -it POD_NAME -- /bin/bash
+Access the running container | kubectl exec -it POD_NAME -- /bin/bash
+
 Replace `POD_NAME` with the name of your running Pod.
-Inside the container, display all environment variables.
-printenv
+
+Inside the container, display all environment variables | printenv
+
 You should be able to observe values provided by both the ConfigMap and the Secret.
 
 ### Step 7 – Clean Up
 
-Delete the Deployment.
-kubectl delete deployment nginx-config-demo
-Delete the ConfigMap.
-kubectl delete configmap app-config
-Delete the Secret.
-kubectl delete secret app-secret
+Delete the Deployment | kubectl delete deployment nginx-config-demo
+
+Delete the ConfigMap | kubectl delete configmap app-config
+
+Delete the Secret | kubectl delete secret app-secret
+
 Finally, delete the Kubernetes cluster from the Google Cloud Console.
 
 ## Key Concepts Learned
@@ -127,6 +127,7 @@ A ConfigMap is a Kubernetes resource used to store **non-sensitive** application
 - Feature flags
 - Port numbers
 - Application settings
+
 ConfigMaps allow configuration to be updated independently of the application image.
 
 ### Secrets
@@ -136,6 +137,7 @@ A Secret is a Kubernetes resource designed to store **sensitive** information. C
 - API keys
 - Authentication tokens
 - Database credentials
+
 Kubernetes stores Secret values in Base64-encoded form and provides mechanisms for securely injecting them into running containers.
 
 ### Externalized Configuration
@@ -150,6 +152,7 @@ Applications should retrieve configuration through environment variables instead
 - Easier configuration changes
 - Secret rotation
 - Improved portability
+
 Using environment variables is considered a cloud-native best practice.
 
 ### kubectl exec
