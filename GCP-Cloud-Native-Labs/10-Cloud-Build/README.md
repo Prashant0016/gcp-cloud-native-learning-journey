@@ -10,6 +10,7 @@ In modern software development, engineers do not manually:
 - SSH into servers
 - Build Docker images
 - Deploy applications
+
 Instead, organizations use **CI/CD pipelines** where code changes automatically trigger build and deployment workflows.
 
 Typical workflow:
@@ -26,8 +27,8 @@ Developer Pushes Code -> Automatic Build -> Automated Testing -> Application Dep
 
 ### Step 1 – Open Cloud Build
 
-Navigate to: Cloud Build
-Enable the API if prompted.
+Navigate to: Cloud Build | Enable the API if prompted.
+
 Open **Triggers** and select **Create Trigger**. Provide an appropriate trigger name and configuration.
 
 ### Step 2 – Choose the Trigger Type
@@ -43,6 +44,7 @@ If a GitHub repository is available:
 4. Keep the default Dockerfile location.
 5. Select the Artifact Registry destination.
 6. Create the trigger.
+
 When code is pushed to the selected branch, Cloud Build automatically starts the pipeline.
 
 #### Option B – Manual Invocation
@@ -53,33 +55,37 @@ If no GitHub repository is available:
 3. Paste the following YAML into the editor.
 
 steps:
-- name: 'gcr.io/cloud-builders/docker' 
-  args: ['version']
+- name: 'gcr.io/cloud-builders/docker'
+- args: ['version']
+  
 If the build reports a logging-related error, update the configuration:
+
   options: 
-     logging: CLOUD_LOGGING_ONLY
+     - logging: CLOUD_LOGGING_ONLY
+     
 This configures Cloud Build to write logs directly to Cloud Logging instead of using a custom storage bucket. Select an available service account, then create and run the trigger.
 
 ### Step 3 – Upgrade the Pipeline
 
 Replace the previous YAML with the following example: steps:
+
 - name: 'ubuntu'
-  entrypoint: 'bash'
-  args: 
+- entrypoint: 'bash'
+- args: 
      - '-c'
-        echo "Starting automated pipeline"
-        mkdir automation-demo
-        cd automation-demo
-        echo "Build completed successfully" > result.txt
-        cat result.txt
-  options: 
-        logging: CLOUD_LOGGING_ONLY
+       - echo "Starting automated pipeline"
+       - mkdir automation-demo
+       - cd automation-demo
+       - echo "Build completed successfully" > result.txt
+       - cat result.txt
+- options:
+      - logging: CLOUD_LOGGING_ONLY
+  
 Run the trigger again. This workflow demonstrates a simple automated pipeline that creates a directory, writes a file, and prints its contents during the build process.
 
 ### Step 4 – View Build History
 
-Navigate to: Cloud Build → History
-If permissions allow, the build logs should display output similar to: Starting automated pipeline Build completed successfully
+Navigate to: Cloud Build → History | If permissions allow, the build logs should display output similar to: Starting automated pipeline Build completed successfully
 
 ## Sandbox Observation
 
@@ -102,6 +108,7 @@ Continuous Delivery and Continuous Deployment automate the release process. Inst
 
 A CI/CD pipeline is an automated sequence of tasks that builds, validates, and prepares software for deployment. Typical pipeline flow:
 Source Code -> Build -> Test -> Deploy
+
 Automation improves reliability, consistency, and deployment speed.
 
 ### Cloud Build
@@ -121,14 +128,15 @@ A Trigger defines the event that starts a Cloud Build pipeline. Common trigger e
 - Tag Creation
 - Manual Invocation
 - API Requests
+
 Triggers eliminate the need to start builds manually.
 
 ### Pipeline Workflow
 
 When a build is triggered, Cloud Build performs a sequence of automated steps. For a Docker-based pipeline:
 Provision Temporary Build Worker -> Download Source Code -> Read Dockerfile -> Build Container Image -> Push Image to Artifact Registry -> (Optional) Deploy Application
-For the manual YAML demonstration:
-Provision Temporary Build Worker -> Execute Bash Script -> Create Directory -> Generate File -> Write Build Output -> Display Results in Logs -> Destroy Temporary Environment
+
+For the manual YAML demonstration: Provision Temporary Build Worker -> Execute Bash Script -> Create Directory -> Generate File -> Write Build Output -> Display Results in Logs -> Destroy Temporary Environment
 
 ### Temporary Build Workers
 
@@ -149,6 +157,7 @@ A Build Artifact is the output produced by a pipeline. Examples include:
 - Docker Images
 - Executable Files
 - Deployment Packages
+
 Artifacts are typically stored in repositories such as Artifact Registry.
 
 ### YAML
