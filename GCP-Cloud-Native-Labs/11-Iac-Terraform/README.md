@@ -12,6 +12,7 @@ Modern cloud environments often contain:
 - Virtual Private Clouds (VPCs)
 - Kubernetes Clusters
 - Firewall Rules
+
 Managing this infrastructure manually through a graphical interface becomes inefficient and error-prone.
 To solve this problem, organizations define infrastructure using code, allowing environments to be created, modified, and destroyed consistently through automation.
 
@@ -30,22 +31,24 @@ Launch **Cloud Shell** from the Google Cloud Console.
 
 ### Step 2 – Verify Terraform Installation
 
-Check whether Terraform is available in the environment.
-terraform version
+Check whether Terraform is available in the environment | terraform version
 
 ### Step 3 – Create a Working Directory
 
 Create a new directory for the Terraform project.
+
 mkdir terraform-demo
 cd terraform-demo
 
 ### Step 4 – Create the Terraform Configuration
 
-Create the main Terraform configuration file.
-nano main.tf
+Create the main Terraform configuration file | nano main.tf
+
 Paste the following configuration.
+
 Replace `PROJECT_ID` with your Google Cloud Project ID and ensure the bucket name is globally unique.
 
+```
 terraform {
   required_providers {
                google = {
@@ -62,50 +65,51 @@ resource "google_storage_bucket" "demo_bucket" {
 	name = "maxx-terraform-demo-12345"
 	location = "US-CENTRAL1"
 }
+
+```
 Save the file.
 
 ### Step 5 – Initialize Terraform
 
-Initialize the working directory.
-terraform init
+Initialize the working directory | terraform init
+
 Terraform downloads the required provider plugins and prepares the environment for deployment.
 
 ### Step 6 – Validate the Configuration
 
-Verify the syntax of the Terraform configuration.
-terraform validate
+Verify the syntax of the Terraform configuration | terraform validate
+
 Successful validation confirms that the configuration is syntactically correct.
 
 ### Step 7 – Preview Infrastructure Changes
 
-Generate an execution plan.
-terraform plan
+Generate an execution plan | terraform plan
+
 Terraform displays the infrastructure changes that will be made without creating any resources.
 
 ### Step 8 – Provision the Infrastructure
 
-Apply the configuration.
-terraform apply
-When prompted, enter: yes
-Terraform provisions the Storage Bucket by communicating directly with Google Cloud APIs.
+Apply the configuration | terraform apply
+
+When prompted, enter: yes | Terraform provisions the Storage Bucket by communicating directly with Google Cloud APIs.
 
 ### Step 9 – Verify the Resource
 
 Navigate to: Cloud Storage → Buckets
+
 Confirm that the Storage Bucket has been successfully created.
 
 ### Step 10 – Observe Terraform State
 
-List the files created by Terraform.
-ls
+List the files created by Terraform | ls
+
 Observe the generated Terraform state files.
 
 ### Step 11 – Destroy the Infrastructure
 
-Delete the resources created by Terraform.
-terraform destroy
-Confirm the operation when prompted.
-This removes the infrastructure defined in the configuration.
+Delete the resources created by Terraform | terraform destroy
+
+Confirm the operation when prompted. This removes the infrastructure defined in the configuration.
 
 ## Key Concepts Learned
 
@@ -128,6 +132,7 @@ Terraform follows a declarative approach. Instead of defining each individual st
 - Create a Virtual Machine
 - Attach a Disk
 - Configure Networking
+
 you simply define the desired infrastructure, and Terraform determines how to achieve that state.
 
 ### Terraform Configuration Files
@@ -146,6 +151,7 @@ A Resource represents an infrastructure component managed by Terraform. Examples
 - Networks
 - Firewall Rules
 - Databases
+
 Each resource is declared within the Terraform configuration.
 
 ### Terraform Initialization
@@ -155,16 +161,19 @@ performs several initialization tasks:
 - Downloads provider plugins
 - Prepares the working directory
 - Configures the Terraform environment
+
 Terraform providers are downloaded dynamically as needed.
 
 ### Terraform Plan
 
 The command: terraform plan
+
 generates a preview of the infrastructure changes before they are applied. This allows engineers to review proposed modifications before making changes to production environments.
 
 ### Terraform Apply
 
 The command: terraform apply
+
 creates or updates infrastructure by executing the planned changes through the Google Cloud APIs.
 
 ### Terraform State
@@ -172,6 +181,7 @@ creates or updates infrastructure by executing the planned changes through the G
 Terraform maintains a state file that records the current infrastructure managed by Terraform. The state file enables Terraform to compare:
 - Desired configuration
 - Current infrastructure
+
 This comparison allows Terraform to determine what changes are required during future executions.
 
 ### Idempotency
@@ -182,6 +192,7 @@ This ensures predictable and reliable infrastructure management.
 ### Terraform Destroy
 
 The command: terraform destroy
+
 removes all resources defined within the Terraform configuration. Cleaning up unused infrastructure is an important cloud engineering practice because it helps reduce:
 - Unnecessary costs
 - Resource clutter
