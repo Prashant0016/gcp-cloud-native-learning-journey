@@ -43,27 +43,27 @@ Once the VM status changes to **Running**, connect using **SSH** from the Google
 
 ### Step 3 – Update the Operating System
 
-sudo apt update
+sudo apt update | 
 Updates the package index to ensure the latest software versions are available.
 
 ### Step 4 – Install NGINX
 
-sudo apt install nginx -y
+sudo apt install nginx -y | 
 NGINX is a lightweight and high-performance web server widely used in production environments, Kubernetes deployments, and reverse proxy configurations.
 
 ### Step 5 – Start the Web Server
 
-sudo systemctl start nginx
+sudo systemctl start nginx | 
 Starts the NGINX service.
 
 ### Step 6 – Enable Automatic Startup
 
-sudo systemctl enable nginx
+sudo systemctl enable nginx | 
 Ensures NGINX automatically starts whenever the VM reboots.
 
 ### Step 7 – Verify Service Status
 
-sudo systemctl status nginx
+sudo systemctl status nginx | 
 Confirm that the service is running successfully.
 Press **Q** to exit the status screen.
 
@@ -76,9 +76,10 @@ Expected result: Welcome to nginx!
 
 ### Step 9 – Deploy a Custom Webpage
 
-Navigate to the default web directory.
+Navigate to the default web directory. | 
 cd /var/www/html
-Edit the homepage.
+
+Edit the homepage. | 
 sudo nano index.html
 Replace the existing content with:
 
@@ -89,6 +90,7 @@ Save the file:
 - Ctrl + O
 - Enter
 - Ctrl + X
+
 Refresh the browser.
 The custom webpage should now be displayed.
 
