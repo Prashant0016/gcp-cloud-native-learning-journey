@@ -10,11 +10,14 @@ Large organizations often have multiple teams working within a single Kubernetes
 - Frontend Team
 - Backend Team
 - Data Team
+
 If every team deploys an application named `app`, Kubernetes would normally encounter naming conflicts. Namespaces solve this problem by isolating resources.
+
 For example:
 - `dev/app`
 - `qa/app`
 - `prod/app`
+
 Although the Deployment name is the same, each exists independently within its own Namespace.
 
 ## Google Cloud Services Used
@@ -28,74 +31,76 @@ Although the Deployment name is the same, each exists independently within its o
 
 ### Step 1 – Create a Kubernetes Cluster
 
-Navigate to: Kubernetes Engine
-Create a new cluster using an **e2-small** machine configuration.
+Navigate to: Kubernetes Engine | Create a new cluster using an **e2-small** machine configuration.
 
 ### Step 2 – Connect to the Cluster
 
 Open **Cloud Shell** and connect `kubectl` to the cluster.
-Verify the connection.
-kubectl get nodes
+
+Verify the connection | kubectl get nodes
 
 ### Step 3 – View Existing Namespaces
 
-Display the namespaces already present in the cluster.
-kubectl get namespaces
+Display the namespaces already present in the cluster | kubectl get namespaces
 
 ### Step 4 – Create Separate Namespaces
 
-Create namespaces for different environments.
+Create namespaces for different environments
+
 kubectl create namespace dev
+
 kubectl create namespace qa
+
 kubectl create namespace prod
-Verify that all namespaces have been created.
-kubectl get namespaces
+
+Verify that all namespaces have been created | kubectl get namespaces
 
 ### Step 5 – Deploy Applications into Each Namespace
 
-Deploy the same application into the **Development** namespace.
-kubectl create deployment app --image=nginx -n dev
-Deploy the application into the **QA** namespace.
-kubectl create deployment app --image=nginx -n qa
-Deploy the application into the **Production** namespace.
-kubectl create deployment app --image=nginx -n prod
+Deploy the same application into the **Development** namespace | kubectl create deployment app --image=nginx -n dev
+
+Deploy the application into the **QA** namespace | kubectl create deployment app --image=nginx -n qa
+
+Deploy the application into the **Production** namespace | kubectl create deployment app --image=nginx -n prod
+
 Although every Deployment is named **app**, they exist independently because each belongs to a different Namespace.
 
 ### Step 6 – View Deployments
 
-View Deployments across all namespaces.
-kubectl get deployments -A
-View Deployments only in the Development namespace.
-kubectl get deployments -n dev
-View Deployments only in the QA namespace.
-kubectl get deployments -n qa
-View Deployments only in the Production namespace.
-kubectl get deployments -n prod
+View Deployments across all namespaces | kubectl get deployments -A
+
+View Deployments only in the Development namespace | kubectl get deployments -n dev
+
+View Deployments only in the QA namespace | kubectl get deployments -n qa
+'
+View Deployments only in the Production namespace |kubectl get deployments -n prod
 
 ### Step 7 – Set the Default Namespace
 
-Configure the current context to use the Development namespace.
-kubectl config set-context --current --namespace=dev
-Verify the current resources.
-kubectl get pods
-Check the active namespace.
-kubectl config view --minify | grep namespace
+Configure the current context to use the Development namespace | kubectl config set-context --current --namespace=dev
+
+Verify the current resources | kubectl get pods
+
+Check the active namespace | kubectl config view --minify | grep namespace
 
 ### Step 8 – Switch Between Namespaces
 
-Switch the active namespace to QA.
-kubectl config set-context --current --namespace=qa
-Verify the change.
-kubectl config view --minify | grep namespace
-Return to the default namespace.
-kubectl config set-context --current --namespace=default
+Switch the active namespace to QA | kubectl config set-context --current --namespace=qa
+
+Verify the change | kubectl config view --minify | grep namespace
+
+Return to the default namespace | kubectl config set-context --current --namespace=default
 
 ### Step 9 – Clean Up Resources
 
-Delete the namespaces.
+Delete the namespaces
+
 kubectl delete namespace dev
+
 kubectl delete namespace qa
+
 kubectl delete namespace prod
+
 Finally, delete the Kubernetes cluster from the Google Cloud Console.
 
 ## Key Concepts Learned
@@ -117,10 +122,16 @@ Every Kubernetes cluster contains several built-in namespaces. Common namespaces
 
 ### Resource Isolation
 
-Namespaces allow resources with identical names to coexist. For example:
+Namespaces allow resources with identical names to coexist. 
+
+For example:
+
 dev/app
+
 qa/app
+
 prod/app
+
 Each Deployment is unique because it belongs to a different Namespace.
 
 ### Environment Separation
@@ -129,6 +140,7 @@ Namespaces are commonly used to separate environments such as:
 - Development
 - Quality Assurance (QA)
 - Production
+
 This enables teams to work independently while sharing the same Kubernetes infrastructure.
 
 ### Namespace Context
