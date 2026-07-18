@@ -32,26 +32,27 @@ Connect to the VM using SSH.
 
 ### Step 2 – Install Docker
 
-Update the package repository.
-sudo apt update
-Install Docker.
-sudo apt install docker.io -y
-Start the Docker service.
-sudo systemctl start docker
-Enable Docker to start automatically after reboot.
-sudo systemctl enable docker
+Update the package repository | sudo apt update
+
+Install Docker | sudo apt install docker.io -y
+
+Start the Docker service | sudo systemctl start docker
+
+Enable Docker to start automatically after reboot | sudo systemctl enable docker
 
 ### Step 3 – Create the Project Directory
 
 Create a project folder.
-mkdir myapp
+
+mkdir myapp | 
 cd myapp
 
 ### Step 4 – Create the Application
 
-Create a new HTML file.
-nano index.html
+Create a new HTML file | nano index.html
+
 Paste the following content:
+> The O/P is shown Below, For code itself: Just write a simple html code including title, headings, paragraph tag etc. 
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,40 +64,42 @@ Paste the following content:
    <p>This application runs inside a custom container.</p>
 </body>
 </html>
+
 Save the file.
 
 ### Step 5 – Create a Dockerfile
 
-Create a Dockerfile.
-nano Dockerfile
+Create a Dockerfile | nano Dockerfile
+
 Add the following instructions:
+
 FROM nginx
 COPY index.html /usr/share/nginx/html/index.html
+
 Save the file.
 
 ### Step 6 – Build the Docker Image
 
-Run the following command.
-sudo docker build -t my-custom-nginx .
+Run the following command | sudo docker build -t my-custom-nginx .
+
 The `.` indicates that Docker should use the current directory as the build context.
 
 ### Step 7 – Verify the Image
 
-List the available Docker images.
-sudo docker images
+List the available Docker images | sudo docker images
+
 Confirm that the newly created image appears in the list.
 
 ### Step 8 – Run the Custom Container
 
-Start a container using the custom image.
-sudo docker run -d -p 80:80 my-custom-nginx
-Open the VM's **External IP Address** in a web browser.
-Expected result: The custom HTML webpage should be displayed.
+Start a container using the custom image | sudo docker run -d -p 80:80 my-custom-nginx
+
+Open the VM's **External IP Address** in a web browser. Expected result: The custom HTML webpage should be displayed.
 
 ### Step 9 – Inspect the Running Container
 
-View the running containers.
-sudo docker ps
+View the running containers | sudo docker ps
+
 Observe:
 - Container ID
 - Image Name
@@ -105,13 +108,13 @@ Observe:
 
 ### Step 10 – Access the Container
 
-Open an interactive shell inside the running container.
-sudo docker exec -it CONTAINER_ID bash
-Verify the application files.
-ls /usr/share/nginx/html
+Open an interactive shell inside the running container | sudo docker exec -it CONTAINER_ID bash
+
+Verify the application files | ls /usr/share/nginx/html
+
 The custom `index.html` file should be present.
-Exit the container shell.
-exit
+
+Exit the container shell | exit
 
 ## Key Concepts Learned
 
@@ -122,6 +125,7 @@ A Dockerfile is a text file containing instructions used to build Docker images.
 - Files to copy
 - Commands to execute
 - Application startup configuration
+
 Instead of manually configuring every container, Docker automatically follows these instructions during the image build process.
 
 ### Building Docker Images
@@ -132,6 +136,7 @@ The resulting image can be deployed consistently across multiple environments.
 ### Understanding the Dockerfile
 
 The following Dockerfile was used:
+
 FROM nginx
 COPY index.html /usr/share/nginx/html/index.html
 
@@ -141,7 +146,7 @@ Instead of installing Linux and NGINX manually, Docker reuses an existing truste
 
 **COPY**
 Copies the local `index.html` file into the container's default NGINX web directory.
-/usr/share/nginx/html
+/usr/share/nginx/html | 
 This replaces the default NGINX homepage with the custom webpage.
 
 ### Building an Image
@@ -183,6 +188,7 @@ Sensitive information should never be stored inside Docker images. Avoid embeddi
 - Passwords
 - API Keys
 - Secrets
+
 Instead, production environments typically use:
 - Google Secret Manager
 - Kubernetes Secrets
@@ -191,10 +197,12 @@ Instead, production environments typically use:
 ### Base Images
 
 Selecting trusted base images is an important security practice.
+
 Official and regularly updated images reduce the risk of:
 - Malware
 - Known vulnerabilities
 - Outdated software
+
 Organizations commonly scan container images before deployment to identify potential security risks.
 
 ## Outcome
