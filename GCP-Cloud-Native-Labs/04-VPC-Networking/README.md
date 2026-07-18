@@ -38,13 +38,11 @@ Open the **default** VPC network and observe:
 
 ### Step 2 – Create Two Virtual Machines
 
-Navigate to: Compute Engine → VM Instances
-Create two Ubuntu Virtual Machines within the same region. Example:
+Navigate to: Compute Engine → VM Instances | Create two Ubuntu Virtual Machines within the same region. Example:
 - frontend-vm
 - backend-vm
 
 Configure:
-
 **Frontend VM**
 - Allow HTTP Traffic
 **Backend VM**
@@ -53,13 +51,11 @@ This simulates a public-facing frontend and a private backend server.
 
 ### Step 3 – Explore Firewall Rules
 
-Navigate to: VPC Network → Firewall
-Review the default firewall rules created by Google Cloud and understand how they control network traffic.
+Navigate to: VPC Network → Firewall | Review the default firewall rules created by Google Cloud and understand how they control network traffic.
 
 ### Step 4 – Test Internal Communication
 
-Connect to the Frontend VM using SSH. Run: ping backend-vm
-This verifies that internal communication between Virtual Machines within the same VPC is permitted by the default internal firewall rule.
+Connect to the Frontend VM using SSH. Run: ping backend-vm | This verifies that internal communication between Virtual Machines within the same VPC is permitted by the default internal firewall rule.
 
 ## Sandbox Observation
 
