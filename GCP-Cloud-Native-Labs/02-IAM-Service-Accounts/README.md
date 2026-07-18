@@ -27,21 +27,21 @@ The goal of this lab is to understand how IAM manages identities and permissions
 
 ### Step 1 – Explore IAM
 
-Navigate to: IAM & Admin → IAM
+Navigate to: IAM & Admin → IAM | 
 Review the members and roles currently assigned within the project.
 
 ### Step 2 – Explore Predefined Roles
 
-Navigate to: IAM & Admin → Roles
-Search for: Compute Admin
+Navigate to: IAM & Admin → Roles | 
+Search for: Compute Admin | 
 Review the permissions included within this predefined role to understand how Google groups related permissions into reusable roles.
 
 ### Step 3 – Create a Service Account
 
-Navigate to: IAM & Admin → Service Accounts
-Create a new Service Account by providing:
+Navigate to: IAM & Admin → Service Accounts. Create a new Service Account by providing:
 - Name
 - Description
+
 Proceed through the wizard and assign an appropriate role if permissions allow.
 
 ### Step 4 – Attach the Service Account (If Applicable)
@@ -80,9 +80,10 @@ Examples:
 ### Roles
 
 A role is a collection of permissions. Instead of assigning hundreds of individual permissions such as:
-compute.instances.create
-compute.instances.delete
-compute.instances.start
+- compute.instances.create 
+- compute.instances.delete  
+- compute.instances.start  
+
 Google combines them into predefined roles such as: Compute Admin
 
 Types of IAM Roles include:
@@ -92,7 +93,8 @@ Types of IAM Roles include:
 
 ### IAM Binding
 
-An IAM Binding connects a Principal to a Role. Structure: Principal + Role = Access
+An IAM Binding connects a Principal to a Role. | Structure: Principal + Role = Access
+
 Example: john@company.com + Compute Viewer = Can view Compute Engine Virtual Machines
 
 
