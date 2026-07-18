@@ -52,7 +52,8 @@ cd myapp
 Create a new HTML file | nano index.html
 
 Paste the following content:
-> The O/P is shown Below, For code itself: Just write a simple html code including title, headings, paragraph tag etc. 
+
+```
 <!DOCTYPE html>
 <html>
 <head>
@@ -64,6 +65,7 @@ Paste the following content:
    <p>This application runs inside a custom container.</p>
 </body>
 </html>
+```
 
 Save the file.
 
