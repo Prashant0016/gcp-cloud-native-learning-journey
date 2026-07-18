@@ -7,13 +7,15 @@
 This repository documents my hands-on learning journey through Google Cloud Platform while exploring modern cloud-native technologies and deployment practices.
 The project consists of **25 practical labs**, each focusing on a specific cloud concept, beginning with basic Compute Engine deployments and progressing toward enterprise-grade Kubernetes workloads, Infrastructure as Code, CI/CD pipelines, event-driven architectures, and complete cloud-native application deployment.
 
+> Sandbox Used : Pluralsight
+
 Every task includes:
 
 - Detailed implementation steps
 - Concept explanations
 - Commands used
-- YAML/Terraform configurations where applicable
-- Screenshots
+- YAML/Terraform configurations (where applicable)
+- Screenshots (where applicable)
 - Key takeaways
 
 The objective was not simply to complete labs, but to understand **how real production systems are designed, deployed, monitored, secured, and maintained in Google Cloud**.
@@ -39,8 +41,7 @@ These notes summarize important concepts, commands, and observations from the le
 
 If you're looking for a concise overview instead of the step-by-step walkthroughs, this document is a good place to start.
 
-> **Note:** The PDF/Word document is intended as a revision companion. For implementation details, explanations, YAML files, Terraform configurations, and screenshots, refer to the individual task folders.
-> **Note:** These notes were written manually for personal reference and may contain minor editorial/typographical/formatting inconsistencies. The emphasis is on the technical content rather than the presentation.
+> **Note:** The PDF/Word document is intended as a revision companion. For implementation details, explanations, YAML files, Terraform configurations, and screenshots, refer to the individual task folders. These notes were written manually for personal reference and may contain minor editorial/typographical/formatting inconsistencies. The emphasis is on the technical content rather than the presentation.
 
 # Learning Objectives
 
@@ -102,7 +103,7 @@ Each folder contains:
 
 - README.md
 - Supporting configuration files (where applicable)
-- Screenshots
+- Screenshots (where applicable)
 
 # Technologies & Services Covered
 
@@ -221,16 +222,24 @@ Where applicable, these observations have been documented in the individual task
 # Project Highlights
 
 ✔ 25 Hands-on Labs
-✔ 100+ Cloud Commands Practiced
-✔ Kubernetes Administration
-✔ Docker & Containerization
-✔ Infrastructure as Code
-✔ Cloud Networking
-✔ CI/CD Concepts
-✔ Event-Driven Architecture
-✔ Cloud-Native Deployment
-✔ Production-Oriented Concepts
 
+✔ 100+ Cloud Commands Practiced
+
+✔ Kubernetes Administration
+
+✔ Docker & Containerization
+
+✔ Infrastructure as Code
+
+✔ Cloud Networking
+
+✔ CI/CD Concepts
+
+✔ Event-Driven Architecture
+
+✔ Cloud-Native Deployment
+
+✔ Production-Oriented Concepts
 
 # About This Repository
 
