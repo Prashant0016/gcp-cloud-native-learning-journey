@@ -8,12 +8,14 @@ Learn how Kubernetes provides persistent storage for stateful applications using
 
 Containers are **ephemeral**, meaning they can be stopped, deleted, or recreated at any time.
 If an application stores data only inside the container's filesystem, that data is lost whenever the container is replaced.
+
 Many production applications require persistent storage, including:
 - Databases
 - User-uploaded files
 - Application logs
 - Content management systems
 - Shared application data
+
 Kubernetes solves this problem by separating storage from the lifecycle of containers.
 
 ## Google Cloud Services Used
@@ -28,23 +30,22 @@ Kubernetes solves this problem by separating storage from the lifecycle of conta
 
 ### Step 1 – Create a Kubernetes Cluster
 
-Navigate to: Kubernetes Engine
-Create a new cluster using an **e2-small** machine configuration.
+Navigate to: Kubernetes Engine | Create a new cluster using an **e2-small** machine configuration.
 
 ### Step 2 – Connect to the Cluster
 
-Open **Cloud Shell** and connect `kubectl` to the cluster.
-gcloud container clusters get-credentials storage-cluster --region REGION
+Open **Cloud Shell** and connect `kubectl` to the cluster | gcloud container clusters get-credentials storage-cluster --region REGION
+
 Replace `REGION` with your selected region.
-Verify the cluster connection.
-kubectl get nodes
+
+Verify the cluster connection | kubectl get nodes
 
 ### Step 3 – Create a Persistent Volume Claim (PVC)
 
-Create the PVC manifest.
-nano pvc.yaml
-Paste the following configuration.
+Create the PVC manifest | nano pvc.yaml
 
+Paste the following configuration.
+```
 apiVersion: v1
 kind: PersistentVolumeClaim
 
@@ -56,18 +57,20 @@ spec:
     resources: 
          requests: 
              storage: 1Gi
+```
 
-Save the file. Create the Persistent Volume Claim.
-kubectl apply -f pvc.yaml
-Verify the PVC.
-kubectl get pvc
+Save the file. 
+
+Create the Persistent Volume Claim | kubectl apply -f pvc.yaml
+
+Verify the PVC | kubectl get pvc
 
 ### Step 4 – Create the Deployment
 
-Create the deployment manifest.
-nano deployment.yaml
-Paste the following configuration.
+Create the deployment manifest | nano deployment.yaml
 
+Paste the following configuration.
+```
 apiVersion: apps/v1
 kind: Deployment
 metadata: 
@@ -92,41 +95,46 @@ volumes:
    - name: storage-volume 
      persistentVolumeClaim: 
          claimName: nginx-pvc
+```
 
-Save the file. Deploy the application.
-kubectl apply -f deployment.yaml
-Verify the Pod.
-kubectl get pods
+Save the file. 
+
+Deploy the application | kubectl apply -f deployment.yaml
+
+Verify the Pod | kubectl get pods
 
 ### Step 5 – Test Persistent Storage
 
-Access the running container.
-kubectl exec -it POD_NAME -- /bin/bash
+Access the running container | kubectl exec -it POD_NAME -- /bin/bash
+
 Replace `POD_NAME` with your running Pod.
-Create a file inside the mounted storage.
-echo "Persistent Kubernetes Storage" > /usr/share/nginx/html/data/test.txt
-Verify the file.
-cat /usr/share/nginx/html/data/test.txt
-Exit the container.
-exit
-Delete the Pod to simulate a failure.
-After Kubernetes creates a replacement Pod, access it again.
-kubectl exec -it NEW_POD_NAME -- /bin/bash
-Verify whether the file still exists.
-cat /usr/share/nginx/html/data/test.txt
+
+Create a file inside the mounted storage | echo "Persistent Kubernetes Storage" > /usr/share/nginx/html/data/test.txt
+
+Verify the file | cat /usr/share/nginx/html/data/test.txt
+
+Exit the container | exit
+
+Delete the Pod to simulate a failure. After Kubernetes creates a replacement Pod, access it again | kubectl exec -it NEW_POD_NAME -- /bin/bash
+
+Verify whether the file still exists | cat /usr/share/nginx/html/data/test.txt
 
 If persistent storage is functioning correctly, the file remains available even after the original Pod has been deleted.
 
 ## Sandbox Observation
 
 > **Persistent Volume Claims (PVCs)** using the **WaitForFirstConsumer** binding mode remain in a \*\*Pending\*\* state until a Pod that consumes the claim is scheduled. This allows Kubernetes to provision storage in the appropriate zone before binding the volume.
+
 > During this lab, the sandbox environment restricted dynamic storage provisioning. As a result, the Persistent Volume Claim remained in the **Pending** state despite the cluster itself being healthy.
 
 **Lab Status**
 
 ✅ Concept Understanding — Completed
+
 ✅ Cluster Validation — Completed
+
 ✅ PVC Troubleshooting — Completed
+
 ⚠️ Dynamic Storage Provisioning — Limited by sandbox environment
 
 ## Key Concepts Learned
@@ -138,6 +146,7 @@ State refers to data that must persist beyond the lifetime of a container. Examp
 - Uploaded files
 - Application logs
 - User-generated content
+
 Stateful applications require persistent storage to avoid data loss.
 
 ### Volumes
@@ -179,6 +188,7 @@ Examples:
 - Frontend applications
 - REST APIs
 - Microservices
+
 These applications can be restarted without losing important data.
 
 **Stateful Applications**
@@ -187,6 +197,7 @@ Examples:
 - Databases
 - File storage systems
 - Message queues
+
 These workloads require durable, persistent storage to preserve application data across failures and restarts.
 
 ## Outcome
